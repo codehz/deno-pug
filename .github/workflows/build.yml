@@ -15,13 +15,16 @@ jobs:
         run: npm install --no-save
 
       - name: clear gitignore
-        run: sed -i '/node_modules/d' .gitignore
+        run: |
+          sed -i '/node_modules/d' .gitignore
+          rm -rf .git
 
       - name: deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
         with:
-          target_branch: deploy
+          target_branch: release
           build_dir: .
+          commit_message: Deploy for deno usage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
