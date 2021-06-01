@@ -1,4 +1,4 @@
-const has_own_property = Object.prototype.hasOwnProperty;
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 /**
  * Merge two attribute objects giving precedence
@@ -39,11 +39,11 @@ export function merge(a, b) {
   return a;
 }
 
-function classes_array(val, escaping) {
+function classesArray(val, escaping) {
   let classString = "",
     className,
-    padding = "",
-    escapeEnabled = Array.isArray(escaping);
+    padding = "";
+  const escapeEnabled = Array.isArray(escaping);
   for (let i = 0; i < val.length; i++) {
     className = classes(val[i]);
     if (!className) continue;
@@ -53,11 +53,11 @@ function classes_array(val, escaping) {
   }
   return classString;
 }
-function classes_object(val) {
+function classesObject(val) {
   let classString = "",
     padding = "";
   for (const key in val) {
-    if (key && val[key] && has_own_property.call(val, key)) {
+    if (key && val[key] && hasOwnProperty.call(val, key)) {
       classString = classString + padding + key;
       padding = " ";
     }
@@ -84,9 +84,9 @@ function classes_object(val) {
  */
 export function classes(val, escaping) {
   if (Array.isArray(val)) {
-    return classes_array(val, escaping);
+    return classesArray(val, escaping);
   } else if (val && typeof val === "object") {
-    return classes_object(val);
+    return classesObject(val);
   } else {
     return val || "";
   }
@@ -104,7 +104,7 @@ export function style(val) {
     let out = "";
     for (const style in val) {
       /* istanbul ignore else */
-      if (has_own_property.call(val, style)) {
+      if (hasOwnProperty.call(val, style)) {
         out = out + style + ":" + val[style] + ";";
       }
     }
@@ -162,7 +162,7 @@ export function attrs(obj, terse) {
   const attrs = "";
 
   for (const key in obj) {
-    if (has_own_property.call(obj, key)) {
+    if (hasOwnProperty.call(obj, key)) {
       let val = obj[key];
 
       if ("class" === key) {
@@ -180,7 +180,7 @@ export function attrs(obj, terse) {
   return attrs;
 }
 
-const match_html = /["&<>]/;
+const matchHtml = /["&<>]/;
 
 /**
  * Escape the given string of `html`.
@@ -191,7 +191,7 @@ const match_html = /["&<>]/;
  */
 export function escape(_html) {
   const html = "" + _html;
-  const regexResult = match_html.exec(html);
+  const regexResult = matchHtml.exec(html);
   if (!regexResult) return _html;
 
   let result = "";
@@ -270,6 +270,8 @@ export function rethrow(err, filename, lineno, str) {
       context +
       "\n\n" +
       err.message;
-  } catch (e) {}
+  } catch {
+    // Just ignore
+  }
   throw err;
 }

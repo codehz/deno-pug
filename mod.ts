@@ -1,9 +1,6 @@
 import { parse } from "https://deno.land/std@0.97.0/flags/mod.ts";
-import { createRequire } from "https://deno.land/std@0.97.0/node/module.ts";
-
-const require = createRequire(import.meta.url);
-
-const pug = require("pug");
+// @deno-types="./globals.d.ts"
+import { compileFileClient } from "https://cdn.esm.sh/v41/pug@3.0.2/deno/pug.bundle.js";
 
 function main() {
   const args = parse(Deno.args);
@@ -19,7 +16,7 @@ function main() {
 
   const file = args._[0] + "";
 
-  const out = pug.compileFileClient(file, {
+  const out = compileFileClient(file, {
     inlineRuntimeFunctions: false,
     pretty: true,
     compileDebug: !args.release,
