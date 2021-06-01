@@ -14,3 +14,14 @@ jobs:
       - name: npm install
         run: npm install --no-save
 
+      - name: clear gitignore
+        run: sed -i '/node_modules/d' .gitignore
+
+      - name: deploy
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: deploy
+          build_dir: .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
