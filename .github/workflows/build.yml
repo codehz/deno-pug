@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ 💫 ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: npm install
+        run: npm install --no-save
+
