@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "pug": "^3.0.2"
+  }
+}
