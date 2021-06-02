@@ -1,6 +1,20 @@
 import { parse } from "https://deno.land/std@0.97.0/flags/mod.ts";
 // @deno-types="./globals.d.ts"
 import { compileFileClient } from "https://cdn.esm.sh/v41/pug@3.0.2/deno/pug.bundle.js";
+export * from "https://cdn.esm.sh/v41/pug@3.0.2/deno/pug.bundle.js";
+
+export const runtime = new URL("./runtime.js", import.meta.url);
+export function generateHeader(filename: string) {
+  return `import * as pug from ${JSON.stringify(runtime)};
+  /**
+   * Template function
+   * generated from ${filename}
+   * 
+   * @param {object} locals
+   * @return {string}
+   */
+  export default `;
+}
 
 function main() {
   const args = parse(Deno.args);
@@ -22,18 +36,8 @@ function main() {
     compileDebug: !args.release,
   });
 
-  const url = new URL("./runtime.js", import.meta.url);
-  const rt = `import * as pug from ${JSON.stringify(url)};
-/**
- * Template function
- * generated from ${file}
- * 
- * @param {object} locals
- * @return {string}
- */
-export default `;
-
-  const final = rt + out;
+  const header = generateHeader(file);
+  const final = header + out;
 
   if (typeof args.output === "string") {
     Deno.writeTextFileSync(args.output, final);
@@ -42,4 +46,6 @@ export default `;
   }
 }
 
-main();
+if (import.meta.main) {
+  main();
+}
