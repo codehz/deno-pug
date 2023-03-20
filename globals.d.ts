@@ -11,7 +11,7 @@
  *
  * The order of contents is according to pugjs API document.
  */
-declare module "https://cdn.esm.sh/v56/pug@3.0.2/deno/pug.bundle.js" {
+declare module "https://esm.sh/v111/pug@3.0.2/deno/pug.bundle.js" {
   ////////////////////////////////////////////////////////////
   /// Options https://pugjs.org/api/reference.html#options ///
   ////////////////////////////////////////////////////////////
