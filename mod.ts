@@ -1,7 +1,7 @@
 import { parse } from "https://deno.land/std@0.180.0/flags/mod.ts";
 // @deno-types="./globals.d.ts"
-import { compileFileClient } from "https://esm.sh/v111/pug@3.0.2/deno/pug.bundle.js";
-export * from "https://esm.sh/v111/pug@3.0.2/deno/pug.bundle.js";
+import { compileFileClient } from "https://esm.sh/v128/pug@3.0.2/deno/pug.bundle.mjs";
+export * from "https://esm.sh/v128/pug@3.0.2/deno/pug.bundle.mjs";
 
 export const runtime = new URL("./runtime.js", import.meta.url);
 export function generateHeader(filename: string) {
